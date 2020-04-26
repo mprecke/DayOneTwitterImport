@@ -83,6 +83,7 @@ postPopper () {
     postUrl="https://twitter.com/${twitterUsername}/status/${postId}"
     postFullText=`grep "\"full_text\"" ${fileName} | cut -d"\"" -f4 | sed 's/\"\,$//'`
     postTextComplete="${postTitle}\n\n${postFullText}\n${postText}\n\n<${postUrl}>\n"
+    #depending on your Mac date handling setting, you might need to swap postMonth and postDay for correct results
     postDateTimeForDayOne="${postMonth}/${postDay}/${postYear} ${postHour}:${postMinute}${postAMPM}"
     printf "\nFilename: ${fileName}\n"
     postMediaUrl=`grep "media_url\"" ${fileName} | head -1 | cut -d"\"" -f4`
