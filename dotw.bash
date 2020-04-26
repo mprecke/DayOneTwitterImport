@@ -94,13 +94,13 @@ postPopper () {
     printf "Post Date: ${postDateTimeForDayOne}\n"
     if [ "${postMedia}" != "" ] ; then
       if [ "${postTags}" != "" ] ; then
-        printf "${postTextComplete}" | /usr/local/bin/dayone2 -p ${postMediaFilename} -d="${postDateTimeForDayOne}" new
+        printf "${postTextComplete}" | /usr/local/bin/dayone2 -t twitter ${postTags} -p ${postMediaFilename} -d="${postDateTimeForDayOne}" new
        else
         printf "${postTextComplete}" | /usr/local/bin/dayone2 -p ${postMediaFilename} -d="${postDateTimeForDayOne}" new
       fi
      else
       if [ "${postTags}" != "" ] ; then
-        printf "${postTextComplete}" | /usr/local/bin/dayone2 -d="${postDateTimeForDayOne}" new
+        printf "${postTextComplete}" | /usr/local/bin/dayone2 -t twitter ${postTags} -d="${postDateTimeForDayOne}" new
        else
         printf "${postTextComplete}" | /usr/local/bin/dayone2 -d="${postDateTimeForDayOne}" new
       fi
