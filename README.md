@@ -1,4 +1,4 @@
-# Import your Twitter Archive into Day One as Journal Entries. #
+# Import a Twitter Archive into Day One as Journal Entries. #
 The dotw.bash script allows you to add Twitter posts into your Day One journal on a Mac via a bash shell. This tool is designed to import the Date and Text of your post as well as your (first) post pic and tags
 
 This is Fork from: https://github.com/kitykity/dotw
