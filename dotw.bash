@@ -1,20 +1,21 @@
 #!/bin/bash
 # dotw.bash
 # Import Twitter posts into Day One.
-# by Susan Pitman
+# by Susan Pitman, forked and edited by Moritz Philip Rcke
 # 11/14/14 Script created.
 # 2/15/2019 Updated for dayone2. Added photo and tagging feature.
+# 4/26/2020 Updated for April 2020 Twitter Archive by Moritz Philp Recke
 
 # Notes:
-# 1. Change the twitter downloaded stuff directory name to "twitter."
-# 2. Set your twitter username variable below. (Feel free to fix this; I was being lazy.)
+# 1. Change the twitter archive directory name to "twitter."
+# 2. Set your twitter username variable below.
 # 3. Set your timezone variable below.
 
 #set -x
 
 thisDir=`pwd`
-twitterUsername="kitykity"
-timeZone="GMT-6:00"
+twitterUsername="mprecke"
+timeZone="GMT+1:00"
 
 makePostFiles () {
     if ls -ld ${thisDir}/dotwPosts 2> /dev/null ; then
@@ -25,7 +26,7 @@ makePostFiles () {
     fileNum="0"
     echo "" > "${thisDir}/dotwPosts/post.0"
       printf "Processing tweet.js file..."    
-      # Each line in the monthly download file...
+      # Each line in the downloaded file...
       while read thisLine ; do
       if echo ${thisLine} | grep "\"source\" :" > /dev/null ; then
         printf "."
@@ -36,7 +37,7 @@ makePostFiles () {
        else
         echo ${thisLine} >> ${thisDir}/dotwPosts/post.${fileNumPadded}
       fi
-  done < ${thisDir}/tweet.js
+  done < ${thisDir}/twitter/data/tweet.js
   printf "\n"
 }
 
@@ -93,15 +94,15 @@ postPopper () {
     printf "Post Date: ${postDateTimeForDayOne}\n"
     if [ "${postMedia}" != "" ] ; then
       if [ "${postTags}" != "" ] ; then
-        printf "${postTextComplete}" | /usr/local/bin/dayone2 -t twitter ${postTags} -p ${postMediaFilename} -d="${postDateTimeForDayOne}" new 
+        printf "${postTextComplete}" | /usr/local/bin/dayone2 -p ${postMediaFilename} -d="${postDateTimeForDayOne}" new
        else
-        printf "${postTextComplete}" | /usr/local/bin/dayone2 -p ${postMediaFilename} -t twitter -d="${postDateTimeForDayOne}" new 
+        printf "${postTextComplete}" | /usr/local/bin/dayone2 -p ${postMediaFilename} -d="${postDateTimeForDayOne}" new
       fi
      else
       if [ "${postTags}" != "" ] ; then
-        printf "${postTextComplete}" | /usr/local/bin/dayone2 -t twitter ${postTags} -d="${postDateTimeForDayOne}" new
+        printf "${postTextComplete}" | /usr/local/bin/dayone2 -d="${postDateTimeForDayOne}" new
        else
-        printf "${postTextComplete}" | /usr/local/bin/dayone2 -t twitter -d="${postDateTimeForDayOne}" new
+        printf "${postTextComplete}" | /usr/local/bin/dayone2 -d="${postDateTimeForDayOne}" new
       fi
     fi
     shortName=`echo ${fileName} | tr '/' '\n' | tail -1`
@@ -113,6 +114,6 @@ postPopper () {
 }
 
 ## MAIN ##
-#makePostFiles
+makePostFiles
 postPopper
 ## END OF SCRIPT ##
